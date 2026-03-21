@@ -99,4 +99,10 @@ if __name__ == '__main__':
                     val_data=val, val_batch_size=batch_size)
     _ = model.compute_baseline_hazards()
 
-    model.save_net(f'./checkpoints_support_full_batch/linear_model_seed_{args.seed}_remove_index_{args.remove_index}')
+    if args.dataset == "support":
+      model.save_net(f'./checkpoints_support_full_batch/linear_model_seed_{args.seed}_remove_index_{args.remove_index}')
+    elif args.dataset == "metabric":
+      model.save_net(f'./checkpoints_metabric_full_batch/linear_model_seed_{args.seed}_remove_index_{args.remove_index}')
+    else:
+      raise ValueError('Invalid dataset')
+    

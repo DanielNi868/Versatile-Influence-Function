@@ -26,7 +26,7 @@ export PYTHONUNBUFFERED=1
 
 # Create runtime directories if they don't exist.
 mkdir -p logs
-mkdir -p checkpoints_support_full_batch
+mkdir -p checkpoints_metabric_full_batch
 
 echo "Using CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES}"
 nvidia-smi || true
