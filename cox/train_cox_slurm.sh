@@ -21,7 +21,6 @@ export CUDA_LAUNCH_BLOCKING=0
 export PYTHONUNBUFFERED=1
 
 # Create logs directory if it doesn't exist
-mkdir -p logs
 
 echo "Using CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES}"
 nvidia-smi || true
