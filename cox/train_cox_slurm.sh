@@ -25,4 +25,4 @@ export PYTHONUNBUFFERED=1
 echo "Using CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES}"
 nvidia-smi || true
 
-python train_cox.py --remove_index -1 --dataset <metabric/support>
+python train_cox.py --remove_index -1 --dataset metabric
