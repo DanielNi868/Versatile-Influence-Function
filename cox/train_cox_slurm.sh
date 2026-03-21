@@ -9,9 +9,9 @@
 
 set -euo pipefail
 
-# Ensure relative paths resolve from this script directory.
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "${SCRIPT_DIR}"
+# Run from the directory where `sbatch` was submitted.
+# In Slurm, the script itself may execute from a spool path.
+cd "${SLURM_SUBMIT_DIR:-$PWD}"
 
 echo "job is starting on $(hostname)"
 echo "SLURM_JOB_ID=${SLURM_JOB_ID:-N/A}"
