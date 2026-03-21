@@ -9,6 +9,10 @@
 
 set -euo pipefail
 
+# Ensure relative paths resolve from this script directory.
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "${SCRIPT_DIR}"
+
 echo "job is starting on $(hostname)"
 echo "SLURM_JOB_ID=${SLURM_JOB_ID:-N/A}"
 
@@ -20,7 +24,9 @@ export PYTORCH_ALLOC_CONF=expandable_segments:True,max_split_size_mb:512
 export CUDA_LAUNCH_BLOCKING=0
 export PYTHONUNBUFFERED=1
 
-# Create logs directory if it doesn't exist
+# Create runtime directories if they don't exist.
+mkdir -p logs
+mkdir -p checkpoints_support_full_batch
 
 echo "Using CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES}"
 nvidia-smi || true
