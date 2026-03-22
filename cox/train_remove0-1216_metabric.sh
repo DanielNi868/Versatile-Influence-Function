@@ -26,4 +26,4 @@ export PYTHONUNBUFFERED=1
 
 mkdir -p logs
 
-python train_cox.py --remove_index 0-1216 --dataset metabric
+python train_cox.py --remove_index 1216 --dataset metabric
