@@ -93,5 +93,6 @@ if __name__ == '__main__':
         gt[remove_index, :] = predict_re_haz(flatten_params(model_params), torch.tensor(x_test)).reshape(-1)
 
     print(gt.shape)
+    print(gt)
     torch.save(gt, f'score/gt_cox_seed_{args.seed}_full_{args.dataset}.pt')
     
