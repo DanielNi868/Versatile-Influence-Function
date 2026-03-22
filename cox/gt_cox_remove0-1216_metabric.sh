@@ -25,5 +25,6 @@ export CUDA_LAUNCH_BLOCKING=0
 export PYTHONUNBUFFERED=1
 
 mkdir -p logs
+mkdir -p score
 
 python gt_cox.py --dataset metabric
