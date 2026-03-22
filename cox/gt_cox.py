@@ -78,6 +78,8 @@ if __name__ == '__main__':
 
     gt = torch.zeros(x_train.shape[0], x_test.shape[0])  # x_train.shape[0]
     for remove_index in range(x_train.shape[0]):  # x_train.shape[0]
+        if remove_index != 1216:
+            continue
         print(remove_index)
         model.load_net(f'./checkpoints_{args.dataset}_full_batch/linear_model_seed_{args.seed}_remove_index_{remove_index}')
         model.net.cpu()
