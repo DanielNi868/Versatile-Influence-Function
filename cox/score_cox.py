@@ -109,5 +109,7 @@ if __name__ == '__main__':
                                                                                         (torch.tensor(x_train), (torch.tensor(y_train[0]), torch.tensor(y_train[1]))), i))
         scores.append(score)
     scores = torch.stack(scores, dim=0)
+    print(scores.shape)
+    print(scores)
 
     torch.save(scores, f'scores_seed_{args.seed}_full_{args.dataset}.pt')
