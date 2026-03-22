@@ -81,7 +81,7 @@ if __name__ == '__main__':
         if remove_index != 1216:
             continue
         print(remove_index)
-        model.load_net(f'./checkpoints_{args.dataset}_full_batch/linear_model_seed_{args.seed}_remove_index_{remove_index}')
+        model.load_net(f'./checkpoints_{args.dataset}_full_batch/linear_model_seed_{args.seed}_remove_index_{remove_index}', weights_only=False)
         model.net.cpu()
 
         model_params = {k: p for k, p in model.net.named_parameters() if p.requires_grad}
