@@ -17,7 +17,6 @@ d=2            # embedding size
 y=400          # walks per vertex
 t=6            # walk length
 lr=0.025       # learning rate
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 st = time.time()
 
@@ -53,9 +52,7 @@ def loss_fn(out, target):
     return torch.log(torch.sum(torch.exp(out))) - target
 
 if __name__ == '__main__':
-    # model = Model()
-    print(f"Using device: {device}")
-    model = Model().to(device)
+    model = Model()
     # model_full = Model()
 
     gt_list = []
@@ -68,8 +65,7 @@ if __name__ == '__main__':
             gt_item = []
             checkpoint_path = Path("checkpoints_deepwalk_1000") / f"model_karate_club_remove_{checkpoint_index}_seed_{seed}.pth"
 
-            # model.load_state_dict(torch.load(checkpoint_path, map_location='cpu'))
-            model.load_state_dict(torch.load(checkpoint_path, map_location=device))
+            model.load_state_dict(torch.load(checkpoint_path, map_location='cpu'))
             model_params = {k: p for k, p in model.named_parameters() if p.requires_grad}
             model.eval()
 
@@ -78,8 +74,7 @@ if __name__ == '__main__':
                 j, k = vertex_pair
 
                 # prepare the one hot vector
-                # one_hot = torch.zeros(size_vertex)
-                one_hot = torch.zeros(size_vertex, device=device)
+                one_hot = torch.zeros(size_vertex)
                 one_hot[j]  = 1
 
                 yhat = torch.func.functional_call(model, params, one_hot)
@@ -98,7 +93,7 @@ if __name__ == '__main__':
             
             print(checkpoint_index)
 
-            print(f"{checkpoint_index}_{seed}_gt_item_{gt_item.shape}")
+            print(f"{checkpoint_index}_seed_{seed}_gt_item_{gt_item.shape}")
             
             # gt_item_sum += torch.stack(gt_item)
             gt_item_list.append(torch.stack(gt_item))
