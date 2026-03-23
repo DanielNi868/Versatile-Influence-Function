@@ -109,12 +109,14 @@ if __name__ == '__main__':
                 grad_val += grad(f)(flatten_params(model_params), walk, remove_index)
             grad_val_list.append(grad_val)
 
-    print("grad_val_list.shape: ", grad_val_list.shape)
-    print("grad_val_list: ", grad_val_list)
-    print("hess.shape: ", hess.shape)
-    print("hess: ", hess)
-    print("gradient_full.shape: ", gradient_full.shape)
-    print("gradient_full: ", gradient_full)
+    print("grad_val_list length:", len(grad_val_list))
+    if len(grad_val_list) > 0:
+        print("grad_val_list[0].shape:", grad_val_list[0].shape)
+        print("grad_val_list[0].device:", grad_val_list[0].device)
+    print("hess.shape:", hess.shape)
+    print("hess", hess)
+    print("gradient_full.shape:", gradient_full.shape)
+    print("gradient_full", gradient_full)
 
 
     torch.save(grad_val_list, f'grad_val_list_seed_{args.seed}_1000.pt')
