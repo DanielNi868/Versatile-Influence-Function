@@ -17,6 +17,7 @@ d=2            # embedding size
 y=1000          # walks per vertex
 t=6            # walk length
 lr=0.025       # learning rate
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu") #ni15
 
 G = nx.karate_club_graph()
 size_vertex = G.number_of_nodes()  # number of vertices
@@ -53,10 +54,16 @@ if __name__ == '__main__':
     argparser = argparse.ArgumentParser()
     argparser.add_argument('--seed', type=int, default=0)
     args = argparser.parse_args()
+    
+    # model = Model()
+    print(f"Using device: {device}") #ni15
+    model = Model().to(device)
 
-    model = Model()
-
-    model.load_state_dict(torch.load(f'checkpoints_deepwalk_1000/model_karate_club_remove_-1_seed_{args.seed}.pth', map_location='cpu'))
+    #model.load_state_dict(torch.load(f'checkpoints_deepwalk_1000/model_karate_club_remove_-1_seed_{args.seed}.pth', map_location='cpu'))
+    model.load_state_dict(torch.load(
+        f'checkpoints_deepwalk_1000/model_karate_club_remove_-1_seed_{args.seed}.pth',
+        map_location=device,
+    ))
     model.eval()
 
     @flatten_func(model)
@@ -64,7 +71,8 @@ if __name__ == '__main__':
         j, k = vertex_pair
 
         # prepare the one hot vector
-        one_hot = torch.zeros(size_vertex)
+        #one_hot = torch.zeros(size_vertex)
+        one_hot = torch.zeros(size_vertex, device=device) #ni15
         one_hot[j]  = 1
 
         yhat = torch.func.functional_call(model, params, one_hot)
@@ -107,6 +115,14 @@ if __name__ == '__main__':
             for walk in tqdm(walks[remove_index]):
                 grad_val += grad(f)(flatten_params(model_params), walk, remove_index)
             grad_val_list.append(grad_val)
+
+    print("grad_val_list.shape: ", grad_val_list.shape)
+    print("grad_val_list: ", grad_val_list)
+    print("hess.shape: ", hess.shape)
+    print("hess: ", hess)
+    print("gradient_full.shape: ", gradient_full.shape)
+    print("gradient_full: ", gradient_full)
+
 
     torch.save(grad_val_list, f'grad_val_list_seed_{args.seed}_1000.pt')
     torch.save(hess, f'h_val_seed_{args.seed}_1000.pt')

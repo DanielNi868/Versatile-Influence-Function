@@ -18,6 +18,8 @@ d=2            # embedding size
 y=1000          # walks per vertex  # normally 400
 t=6            # walk length
 lr=0.025       # learning rate
+#try using GPU --ni15
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 argparser = argparse.ArgumentParser()
 argparser.add_argument('--remove_index', type=int, default=-1)
@@ -63,7 +65,8 @@ def skip_gram(wvi,  w, model):
     for j in range(len(wvi)):
         for k in range(max(0,j-w) , min(j+w, len(wvi))):
             #generate one hot vector
-            one_hot          = torch.zeros(size_vertex)
+            #one_hot          = torch.zeros(size_vertex)
+            one_hot          = torch.zeros(size_vertex, device=device) #ni15
             one_hot[wvi[j]]  = 1
 
             out              = model(one_hot)
@@ -78,13 +81,15 @@ def skip_gram(wvi,  w, model):
                 param.grad.data.zero_()
 
 if __name__ == '__main__':
+    print(f"Using device: {device}") #ni15
     for seed in range(10):
 
         torch.manual_seed(seed)
         np.random.seed(seed)
         random.seed(seed)
 
-        model = Model()
+        #model = Model()
+        model = Model().to(device) #ni15
 
         # Train a full model
         for i in tqdm(range(y)):
@@ -104,9 +109,12 @@ if __name__ == '__main__':
                 labels_list.append(1)
 
         plt.figure()
-        plt.scatter(model.phi.data[:,0], model.phi.data[:,1], c=labels_list)
+        #plt.scatter(model.phi.data[:,0], model.phi.data[:,1], c=labels_list)
+        phi_cpu = model.phi.data.detach().cpu() #ni15
+        plt.scatter(phi_cpu[:,0], phi_cpu[:,1], c=labels_list) #ni15
         for i in range(size_vertex):
-            plt.annotate(i, (model.phi.data[i,0], model.phi.data[i,1]))
+            #plt.annotate(i, (model.phi.data[i,0], model.phi.data[i,1]))
+            plt.annotate(i, (phi_cpu[i,0], phi_cpu[i,1])) #ni15
 
         print(time.time() - st)
 
