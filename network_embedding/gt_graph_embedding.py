@@ -93,16 +93,18 @@ if __name__ == '__main__':
             
             print(checkpoint_index)
 
-            print(f"{checkpoint_index}_seed_{seed}_gt_item_{gt_item.shape}")
-            
+            print(f"{checkpoint_index}_gt_item[0].shape_{gt_item[0].shape}")
+            print(f"{checkpoint_index}_gt_item[0]_{gt_item[0]}")
             # gt_item_sum += torch.stack(gt_item)
             gt_item_list.append(torch.stack(gt_item))
         
-        print(f"{checkpoint_index}_gt_item_list_{gt_item_list.shape}")
+        print(f"{checkpoint_index}_gt_item_list[0].shape_{gt_item_list[0].shape}")
+        print(f"{checkpoint_index}_gt_item_list[0]_{gt_item_list[0]}")
         # gt_list.append(gt_item_sum)
         gt_list.append(torch.stack(gt_item_list))
     
-    print(f"shape of gt_list: {gt_list.shape}")
+    print(f"gt_list[0].shape_{gt_list[0].shape}")
+    print(f"gt_list[0]_{gt_list[0]}")
         
     gt = torch.stack(gt_list)
 
