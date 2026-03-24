@@ -78,7 +78,7 @@ def skip_gram(wvi,  w, model):
                 param.grad.data.zero_()
 
 if __name__ == '__main__':
-    for seed in range(10):
+    for seed in range(2):
 
         torch.manual_seed(seed)
         np.random.seed(seed)

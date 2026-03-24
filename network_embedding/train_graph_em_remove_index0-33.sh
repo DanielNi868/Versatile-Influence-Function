@@ -24,28 +24,6 @@ export PYTORCH_ALLOC_CONF=expandable_segments:True,max_split_size_mb:512
 export CUDA_LAUNCH_BLOCKING=0
 export PYTHONUNBUFFERED=1
 
-python train_graph_embedding.py --remove_index 0
-python train_graph_embedding.py --remove_index 1
-python train_graph_embedding.py --remove_index 2
-python train_graph_embedding.py --remove_index 3
-python train_graph_embedding.py --remove_index 4
-python train_graph_embedding.py --remove_index 5
-python train_graph_embedding.py --remove_index 6
-python train_graph_embedding.py --remove_index 7
-python train_graph_embedding.py --remove_index 8
-python train_graph_embedding.py --remove_index 9
-python train_graph_embedding.py --remove_index 10
-python train_graph_embedding.py --remove_index 11
-python train_graph_embedding.py --remove_index 12
-python train_graph_embedding.py --remove_index 13
-python train_graph_embedding.py --remove_index 14
-python train_graph_embedding.py --remove_index 15
-python train_graph_embedding.py --remove_index 16
-python train_graph_embedding.py --remove_index 17
-python train_graph_embedding.py --remove_index 18
-python train_graph_embedding.py --remove_index 19
-python train_graph_embedding.py --remove_index 20
-python train_graph_embedding.py --remove_index 21
 python train_graph_embedding.py --remove_index 22
 python train_graph_embedding.py --remove_index 23
 python train_graph_embedding.py --remove_index 24
