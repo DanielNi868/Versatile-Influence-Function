@@ -3,9 +3,20 @@ from scipy.stats import combine_pvalues
 import torch
 import numpy as np
 
+import argparse
+
 if __name__ == '__main__':
-    scores = torch.load("score/scores_seed_0_full_metabric.pt")
-    gt = torch.load("score/gt_cox_seed_1_full_metabric.pt")
+    parser = argparse.ArgumentParser(description='Compute correlation between scores and ground truth')
+    #parser.add_argument('--seed', type=int, default=0, help='Random seed')
+    parser.add_argument('--dataset', type=str, default='metabric', help='Dataset to use')
+    args = parser.parse_args()
+
+    if args.dataset == 'metabric':
+        scores = torch.load(f"scores_seed_0_full_{args.dataset}.pt")
+        gt = torch.load("score/gt_cox_seed_0_full_metabric.pt")
+    elif args.dataset == 'support':
+        scores = torch.load(f"scores_seed_0_full_{args.dataset}.pt")
+        gt = torch.load("score/gt_cox_seed_0_full_support.pt")
 
     print(scores.shape, gt.shape)
 
