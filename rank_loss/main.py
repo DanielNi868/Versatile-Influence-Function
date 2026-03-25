@@ -376,5 +376,17 @@ for epoch in range(args.epoch):
                     model.build_index()
 
 print(time.time() - st)
-# torch.save(model.state_dict(), f"checkpoints_lr/model_{args.dataset}_remove_label_{args.remove_label}_seed_{args.seed}_dim_8_epoch{args.epoch}.pth")
+os.makedirs(f"checkpoints_lr", exist_ok=True)
+if args.dataset == "Delicious":
+    dim = 8 if args.remove_label <= 30 else 50
+    torch.save(model.state_dict(), f"checkpoints_lr/model_{args.dataset}_remove_label_{args.remove_label}_seed_{args.seed}_dim_{dim}.pth")
+else:
+    torch.save(model.state_dict(), f"checkpoints_lr/model_{args.dataset}_remove_label_{args.remove_label}_seed_{args.seed}_dim_8_epoch{args.epoch}.pth")
 eval(val_loader)
+
+# model.load_state_dict(torch.load(f"checkpoints_lr/model_{args.dataset}_remove_label_-1_seed_0_dim_8.pth"))
+# model.load_state_dict(torch.load(f"checkpoints_lr/model_{args.dataset}_remove_label_{remove_label}_seed_0_dim_{8 if remove_label <=30 else 50}.pth")) 
+
+# model.load_state_dict(torch.load(f"checkpoints_lr/model_{args.dataset}_remove_label_-1_seed_0_dim_8_epoch30.pth"))  # CHANGE!
+# model.load_state_dict(torch.load(f"checkpoints_lr/model_{args.dataset}_remove_label_{remove_label}_seed_1_dim_8_epoch100.pth"))  # CHANGE!
+   

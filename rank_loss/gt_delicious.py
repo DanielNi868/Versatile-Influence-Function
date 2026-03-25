@@ -323,4 +323,5 @@ if __name__ == "__main__":
             all_loss.append(loss)
         all_loss = torch.stack(all_loss)
         print(all_loss.shape)
+        os.makedirs(f"ground_truth_delicious", exist_ok=True)
         torch.save(all_loss, f"ground_truth_delicious/loss_lr_{args.dataset}_159_1000_seed_0_dim_50_relu_fix_rm.pth")  # CHANGE!

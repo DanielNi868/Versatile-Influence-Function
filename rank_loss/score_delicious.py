@@ -419,7 +419,7 @@ if __name__ == "__main__":
             score = test_gradients_delete @ inf_thetas[remove_label].T
             scores.append(score)
         scores = torch.stack(scores, dim=1)
-
+        os.makedirs(f"score", exist_ok=True)
         torch.save(scores, f"score/score_{args.dataset}_100_500_-9_dim_8_lr_fixed_hessian_norm_fix_gradient_norm.pth")
 
             # del gradient
