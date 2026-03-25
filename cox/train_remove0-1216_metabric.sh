@@ -26,4 +26,9 @@ export PYTHONUNBUFFERED=1
 
 mkdir -p logs
 
-python train_cox.py --remove_index 1216 --dataset metabric
+set -e
+for i in $(seq 0 1217); do
+  echo "[$(date)] training remove_index=$i"
+  python train_cox.py --remove_index "$i" --dataset metabric \
+    >> "logs/train_remove_0_1216_metabric.log" 2>&1
+done
